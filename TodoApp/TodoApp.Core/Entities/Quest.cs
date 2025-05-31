@@ -1,18 +1,26 @@
-﻿using TodoApp.Core.Exceptions;
+﻿using System.Text.Json.Serialization;
+using TodoApp.Core.Exceptions;
 
 namespace TodoApp.Core.Entities
 {
     public class Quest : BaseEntity
     {
+        [JsonInclude]
         public string Title { get; private set; } = "";
+        [JsonInclude]
         public string Description { get; private set; } = "";
+        [JsonInclude]
         public QuestStatus Status { get; private set; }
+        [JsonInclude]
         public DateTime Created { get; private set; }
+        [JsonInclude]
         public DateTime? Modified { get; private set; }
 
+        private Quest() : base() { }
+
         public Quest(int id, string title, string description, string status, DateTime created, DateTime? modified = null)
+            : base(id)
         {
-            Id = id;
             ChangeTitle(title);
             ChangeDescription(description);
             ChangeStatus(status);
@@ -21,8 +29,8 @@ namespace TodoApp.Core.Entities
         }
 
         public Quest(int id, string title, string description, QuestStatus status, DateTime created, DateTime? modified = null)
+            : base(id)
         {
-            Id = id;
             ChangeTitle(title);
             ChangeDescription(description);
             Status = status;
